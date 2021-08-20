@@ -1,8 +1,9 @@
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
-    "/style.css",
+    "/styles.css",
     "/index.js",
+    "/db.js",
     "/manifest.webmanifest",
     "/service-worker.js",
     "/icons/icon-192x192.png",
@@ -17,6 +18,7 @@ const FILES_TO_CACHE = [
     evt.waitUntil(
       caches.open(CACHE_NAME).then(cache => {
         console.log("Your files were pre-cached successfully!");
+        console.log(FILES_TO_CACHE);
         return cache.addAll(FILES_TO_CACHE);
       })
     );
@@ -44,6 +46,7 @@ const FILES_TO_CACHE = [
   // fetch
   self.addEventListener("fetch", function(evt) {
     // cache successful requests to the API
+    console.log("Fetching " + evt.request.url);
     if (evt.request.url.includes("/api/")) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
@@ -53,11 +56,12 @@ const FILES_TO_CACHE = [
               if (response.status === 200) {
                 cache.put(evt.request.url, response.clone());
               }
-  
+              console.log("Returning response for " + evt.request.url);
               return response;
             })
             .catch(err => {
               // Network request failed, try to get it from the cache.
+              console.log("Returning cached response for " + evt.request.url);
               return cache.match(evt.request);
             });
         }).catch(err => console.log(err))
