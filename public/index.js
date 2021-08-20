@@ -8,11 +8,7 @@ fetch("/api/transaction")
   .then(data => {
     // save db data on global variable
     transactions = data;
-    console.log(getAllPending());
-
-    populateTotal();
-    populateTable();
-    populateChart();
+    getAllPending();
   });
 
 function populateTotal() {

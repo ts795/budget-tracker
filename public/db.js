@@ -40,9 +40,13 @@ function getAllPending() {
   // get all records from store and set to a variable
   const getAll = store.getAll();
   getAll.onsuccess = function() {
-    console.log(getAll.result);
     // add to beginning of current array of data
-    //transactions.unshift(transaction);
+    for (var idx = 0; idx < getAll.result.length; idx++) {
+      transactions.unshift(getAll.result[idx]);
+    }
+    populateTotal();
+    populateTable();
+    populateChart();
   }
 }
 
