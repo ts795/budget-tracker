@@ -12,6 +12,10 @@ fetch("/api/transaction")
       transactions = data;
     }
     getAllPending();
+  }).catch(err => {
+    // Network request failed
+    console.log(err);
+    getAllPending();
   });
 
 function populateTotal() {
