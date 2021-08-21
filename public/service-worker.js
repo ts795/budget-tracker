@@ -45,7 +45,7 @@ const FILES_TO_CACHE = [
   // fetch
   self.addEventListener("fetch", function(evt) {
     // cache successful requests to the API
-    console.log("Fetching " + evt.request);
+    console.log("Fetching " + evt.request.method);
     if (evt.request.url.includes("/api/")) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
