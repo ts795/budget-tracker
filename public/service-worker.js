@@ -55,12 +55,10 @@ const FILES_TO_CACHE = [
               if (response.status === 200) {
                 cache.put(evt.request.url, response.clone());
               }
-              console.log("Returning response for " + evt.request.url);
               return response;
             })
             .catch(err => {
               // Network request failed, try to get it from the cache.
-              console.log("Returning cached response for " + evt.request.url);
               return cache.match(evt.request);
             });
         }).catch(err => console.log(err))
