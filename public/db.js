@@ -49,6 +49,7 @@ function getAllPending() {
   getAll.onsuccess = function() {
     // add to beginning of current array of data
     for (var idx = 0; idx < getAll.result.length; idx++) {
+      console.log(transactions);
       transactions.unshift(getAll.result[idx]);
     }
     populateTotal();

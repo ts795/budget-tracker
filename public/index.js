@@ -7,7 +7,10 @@ fetch("/api/transaction")
   })
   .then(data => {
     // save db data on global variable
-    transactions = data;
+    console.log("Initial data from server: ", data);
+    if (data) {
+      transactions = data;
+    }
     getAllPending();
   });
 
