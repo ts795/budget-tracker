@@ -10,19 +10,22 @@ fetch("/api/transaction")
     console.log("Initial data from server: ", data);
     if (data) {
       transactions = data;
-    }
-    var status = getAllPending();
-    if (status === "db not initialized") {
-      // Try again after 1 second
-      setTimeout(getAllPending, 1000);
+      var status = saveTransactions(transactions);
+      if (status === "db not initialized") {
+        // Try again after 1 second
+        function trySaveAgain() {
+          saveTransactions(transactions)
+        }
+        setTimeout(trySaveAgain, 1000);
+      }
     }
   }).catch(err => {
     // Network request failed
     console.log(err);
-    var status = getAllPending();
+    var status = getAllTransactions();
     if (status === "db not initialized") {
       // Try again after 1 second
-      setTimeout(getAllPending, 1000);
+      setTimeout(getAllTransactions, 1000);
     }
   });
 
