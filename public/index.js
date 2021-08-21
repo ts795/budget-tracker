@@ -11,11 +11,19 @@ fetch("/api/transaction")
     if (data) {
       transactions = data;
     }
-    getAllPending();
+    var status = getAllPending();
+    if (status === "db not initialized") {
+      // Try again after 1 second
+      setTimeout(getAllPending, 1000);
+    }
   }).catch(err => {
     // Network request failed
     console.log(err);
-    getAllPending();
+    var status = getAllPending();
+    if (status === "db not initialized") {
+      // Try again after 1 second
+      setTimeout(getAllPending, 1000);
+    }
   });
 
 function populateTotal() {

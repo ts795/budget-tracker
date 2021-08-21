@@ -39,7 +39,7 @@ function getAllPending() {
     populateTotal();
     populateTable();
     populateChart();
-    return;
+    return "db not initialized";
   }
   // open a transaction on your pending db
   const transaction = db.transaction(["pending"], "readwrite");
