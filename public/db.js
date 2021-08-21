@@ -32,7 +32,6 @@ function saveRecord(record) {
 
   // add record to your store with add method.
   store.add(record);
-  addTransaction(record);
 }
 
 function addTransaction(record) {
