@@ -46,13 +46,13 @@ const FILES_TO_CACHE = [
   self.addEventListener("fetch", function(evt) {
     // cache successful requests to the API
     console.log("Fetching " + evt.request.method);
-    if (evt.request.url.includes("/api/") && evt.request.method === "GET") {
+    if (evt.request.url.includes("/api/")) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
           return fetch(evt.request)
             .then(response => {
-              // If the response was good, clone it and store it in the cache.
-              if (response.status === 200) {
+              // If the response was good, clone it and store it in the cache if it was a GET.
+              if (response.status === 200 && evt.request.method === "GET") {
                 cache.put(evt.request.url, response.clone());
               }
               return response;
