@@ -33,6 +33,13 @@ function saveRecord(record) {
 }
 
 function getAllPending() {
+  if (!db) {
+    // Draw the chart and return if there is no database
+    populateTotal();
+    populateTable();
+    populateChart();
+    return;
+  }
   // open a transaction on your pending db
   const transaction = db.transaction(["pending"], "readwrite");
   // access your pending object store
