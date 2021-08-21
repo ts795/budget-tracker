@@ -35,6 +35,7 @@ function saveRecord(record) {
 function getAllPending() {
   if (!db) {
     // Draw the chart and return if there is no database
+    console.log("DB not initialized yet");
     populateTotal();
     populateTable();
     populateChart();
